@@ -64,7 +64,37 @@ class RepositoryImpl extends Repository {
         }
       } catch (error) {
         // Return biz logic error
-        return Left((ErrorHandler.handle(error).failure));
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      // Return connection error
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Authentication>> register(
+      RegisterRequest registerRequest) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        // Its safe to call the API
+        final response = await _remoteDataSource.register(registerRequest);
+        if (response.status == ApiInternalStatus.success) {
+          // Success
+          // Return data (success)
+          // Return right
+          return Right(response.toDomain());
+        } else {
+          // Return biz logic error
+          // Return left
+          return Left(
+            Failure(response.status ?? ResponseCode.unknown,
+                response.message ?? ResponseMessage.unknown),
+          );
+        }
+      } catch (error) {
+        // Return biz logic error
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       // Return connection error

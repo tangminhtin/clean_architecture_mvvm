@@ -82,6 +82,6 @@ class ForgotPasswordResponse extends BaseResponse {
   factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
       _$ForgotPasswordResponseFromJson(json);
 
-  // To jsonr
+  // To json
   Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
 }

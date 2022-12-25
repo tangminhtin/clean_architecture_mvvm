@@ -10,7 +10,7 @@ import 'package:clean_architecture_mvvm/domain/usecase/base_usecase.dart';
 class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
   final Repository _repository;
 
-  LoginUseCase(this._repository);
+  const LoginUseCase(this._repository);
 
   @override
   Future<Either<Failure, Authentication>> execute(
