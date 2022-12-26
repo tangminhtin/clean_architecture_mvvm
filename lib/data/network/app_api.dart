@@ -1,4 +1,3 @@
-import 'package:analyzer/file_system/file_system.dart';
 import 'package:clean_architecture_mvvm/app/constant.dart';
 import 'package:clean_architecture_mvvm/data/responses/responses.dart';
 import 'package:dio/dio.dart';
@@ -29,4 +28,7 @@ abstract class AppServiceClient {
     @Field('mobile_number') String mobileNumber,
     @Field('profile_picture') String profilePicture,
   );
+
+  @GET('/home')
+  Future<HomeResponse> getHome();
 }

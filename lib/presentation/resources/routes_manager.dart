@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clean_architecture_mvvm/app/di.dart';
 import 'package:clean_architecture_mvvm/presentation/forgot_password/forgot_password.dart';
 import 'package:clean_architecture_mvvm/presentation/login/login.dart';
-import 'package:clean_architecture_mvvm/presentation/main/main.dart';
+import 'package:clean_architecture_mvvm/presentation/main/main_view.dart';
 import 'package:clean_architecture_mvvm/presentation/onboarding/onboarding.dart';
 import 'package:clean_architecture_mvvm/presentation/register/register.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/strings_manager.dart';
@@ -36,6 +36,7 @@ class RouteGenerator {
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.mainRoute:
+        initHomeModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.storeDetailsRoute:
         return MaterialPageRoute(builder: (_) => const StoreDetailsView());

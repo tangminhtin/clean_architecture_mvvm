@@ -41,3 +41,59 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
     return this?.support?.orEmpty() ?? empty;
   }
 }
+
+extension ServiceResponseMapper on ServiceResponse? {
+  Service toDomain() {
+    return Service(
+      this?.id.orZero() ?? zero,
+      this?.title.orEmpty() ?? empty,
+      this?.image.orEmpty() ?? empty,
+    );
+  }
+}
+
+extension StoreResponseMapper on StoreResponse? {
+  Store toDomain() {
+    return Store(
+      this?.id.orZero() ?? zero,
+      this?.title.orEmpty() ?? empty,
+      this?.image.orEmpty() ?? empty,
+    );
+  }
+}
+
+extension BannerResponseMapper on BannerResponse? {
+  BannerAd toDomain() {
+    return BannerAd(
+      this?.id.orZero() ?? zero,
+      this?.title.orEmpty() ?? empty,
+      this?.image.orEmpty() ?? empty,
+      this?.link.orEmpty() ?? empty,
+    );
+  }
+}
+
+extension HomeResponseMapper on HomeResponse? {
+  HomeObject toDomain() {
+    List<Service> mappedServices =
+        (this?.data?.services?.map((service) => service.toDomain()) ??
+                const Iterable.empty())
+            .cast<Service>()
+            .toList();
+
+    List<Store> mappedStores =
+        (this?.data?.stores?.map((store) => store.toDomain()) ??
+                const Iterable.empty())
+            .cast<Store>()
+            .toList();
+
+    List<BannerAd> mappedBanners =
+        (this?.data?.banners?.map((bannerAd) => bannerAd.toDomain()) ??
+                const Iterable.empty())
+            .cast<BannerAd>()
+            .toList();
+
+    var data = HomeData(mappedServices, mappedStores, mappedBanners);
+    return HomeObject(data);
+  }
+}
