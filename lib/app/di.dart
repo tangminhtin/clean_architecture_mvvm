@@ -1,9 +1,12 @@
+import 'package:clean_architecture_mvvm/data/data_source/local_data_source.dart';
 import 'package:clean_architecture_mvvm/domain/usecase/forgot_password_usecase.dart';
 import 'package:clean_architecture_mvvm/domain/usecase/home_usecase.dart';
 import 'package:clean_architecture_mvvm/domain/usecase/register_usecase.dart';
+import 'package:clean_architecture_mvvm/domain/usecase/store_detais_usecase.dart';
 import 'package:clean_architecture_mvvm/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:clean_architecture_mvvm/presentation/main/home/home_viewmodel.dart';
 import 'package:clean_architecture_mvvm/presentation/register/register_viewmodel.dart';
+import 'package:clean_architecture_mvvm/presentation/store_details/store_details_viewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,9 +48,13 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImplementer(instance()));
 
+  // Local data source
+  instance.registerLazySingleton<LocalDataSource>(
+      () => LocalDataSourceImplementer());
+
   // Repository
   instance.registerLazySingleton<Repository>(
-      () => RepositoryImpl(instance(), instance()));
+      () => RepositoryImpl(instance(), instance(), instance()));
   initAppModule();
 }
 
@@ -81,5 +88,14 @@ initHomeModule() {
   if (!GetIt.I.isRegistered<HomeUseCase>()) {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
     instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
+  }
+}
+
+initStoreDetailsModule() {
+  if (!GetIt.I.isRegistered<StoreDetailsUseCase>()) {
+    instance.registerFactory<StoreDetailsUseCase>(
+        () => StoreDetailsUseCase(instance()));
+    instance.registerFactory<StoreDetailsViewModel>(
+        () => StoreDetailsViewModel(instance()));
   }
 }

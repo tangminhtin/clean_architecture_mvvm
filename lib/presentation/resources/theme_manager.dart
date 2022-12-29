@@ -74,6 +74,9 @@ ThemeData getApplicationTheme() {
         color: ColorManager.primary,
         fontSize: FontSize.s14,
       ),
+      bodyText2: getMediumStyle(
+        color: ColorManager.lightGrey,
+      ),
       caption: getRegularStyle(
         color: ColorManager.grey1,
       ),
