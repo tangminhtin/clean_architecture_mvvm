@@ -5,6 +5,7 @@ import 'package:clean_architecture_mvvm/presentation/main/settings_page.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/color_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/strings_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
@@ -22,14 +23,14 @@ class _MainViewState extends State<MainView> {
     SettingsPage(),
   ];
 
-  final List<String> titles = const [
-    AppStrings.home,
-    AppStrings.search,
-    AppStrings.notifications,
-    AppStrings.settings,
+  final List<String> titles = [
+    AppStrings.home.tr(),
+    AppStrings.search.tr(),
+    AppStrings.notifications.tr(),
+    AppStrings.settings.tr(),
   ];
 
-  String _title = AppStrings.home;
+  String _title = AppStrings.home.tr();
   int _currentIndex = 0;
 
   @override
@@ -56,22 +57,22 @@ class _MainViewState extends State<MainView> {
           unselectedItemColor: ColorManager.grey,
           currentIndex: _currentIndex,
           onTap: onTap,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: AppStrings.home,
+              icon: const Icon(Icons.home),
+              label: AppStrings.home.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: AppStrings.search,
+              icon: const Icon(Icons.search),
+              label: AppStrings.search.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: AppStrings.notifications,
+              icon: const Icon(Icons.notifications),
+              label: AppStrings.notifications.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: AppStrings.settings,
+              icon: const Icon(Icons.settings),
+              label: AppStrings.settings.tr(),
             ),
           ],
         ),

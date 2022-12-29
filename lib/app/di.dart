@@ -55,7 +55,6 @@ Future<void> initAppModule() async {
   // Repository
   instance.registerLazySingleton<Repository>(
       () => RepositoryImpl(instance(), instance(), instance()));
-  initAppModule();
 }
 
 initLoginModule() {
@@ -98,4 +97,14 @@ initStoreDetailsModule() {
     instance.registerFactory<StoreDetailsViewModel>(
         () => StoreDetailsViewModel(instance()));
   }
+}
+
+resetModules() {
+  instance.reset(dispose: false);
+  initAppModule();
+  initHomeModule();
+  initLoginModule();
+  initRegisterModule();
+  initForgotPasswordModule();
+  initStoreDetailsModule();
 }

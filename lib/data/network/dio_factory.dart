@@ -19,11 +19,12 @@ class DioFactory {
     Dio dio = Dio();
     int timeOut = 60 * 1000; // 1 min
     String language = await _appPreferences.getAppLanguage();
+    String token = await _appPreferences.getUserToken();
 
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
-      authorization: Constant.token,
+      authorization: token,
       defaultLanguage: language,
     };
 

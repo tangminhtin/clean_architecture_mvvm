@@ -2,11 +2,15 @@ import 'package:clean_architecture_mvvm/app/app_prefs.dart';
 import 'package:clean_architecture_mvvm/app/di.dart';
 import 'package:clean_architecture_mvvm/data/data_source/local_data_source.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/assets_manager.dart';
+import 'package:clean_architecture_mvvm/presentation/resources/language_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/routes_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/strings_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/svg.dart';
+import 'dart:math' as math;
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -26,44 +30,60 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
         ListTile(
           title: Text(
-            AppStrings.changeLanguage,
+            AppStrings.changeLanguage.tr(),
             style: Theme.of(context).textTheme.headline4,
           ),
           leading: SvgPicture.asset(ImageAssets.changeLangIc),
-          trailing: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isRtl() ? math.pi : 0),
+            child: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          ),
           onTap: () {
             _changeLanguage();
           },
         ),
         ListTile(
           title: Text(
-            AppStrings.contactUs,
+            AppStrings.contactUs.tr(),
             style: Theme.of(context).textTheme.headline4,
           ),
           leading: SvgPicture.asset(ImageAssets.contactUsIc),
-          trailing: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isRtl() ? math.pi : 0),
+            child: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          ),
           onTap: () {
             _contactUs();
           },
         ),
         ListTile(
           title: Text(
-            AppStrings.inviteYourFriends,
+            AppStrings.inviteYourFriends.tr(),
             style: Theme.of(context).textTheme.headline4,
           ),
           leading: SvgPicture.asset(ImageAssets.inviteFriendsIc),
-          trailing: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isRtl() ? math.pi : 0),
+            child: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          ),
           onTap: () {
             _inviteFriends();
           },
         ),
         ListTile(
           title: Text(
-            AppStrings.logout,
+            AppStrings.logout.tr(),
             style: Theme.of(context).textTheme.headline4,
           ),
           leading: SvgPicture.asset(ImageAssets.logoutIc),
-          trailing: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isRtl() ? math.pi : 0),
+            child: SvgPicture.asset(ImageAssets.settingsRightArrowIc),
+          ),
           onTap: () {
             _logout();
           },
@@ -72,12 +92,18 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  bool isRtl() {
+    return context.locale == arabicLocal;
+  }
+
   void _changeLanguage() {
     // I will apply localization later
+    _appPreferences.setLanguageChanged();
+    Phoenix.rebirth(context); // Restart to apply language changes
   }
 
   void _contactUs() {
-    // Its a task for you to open any web bage with dummy content
+    // Its a task for you to open any web base with dummy content
   }
 
   void _inviteFriends() {

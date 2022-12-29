@@ -1,5 +1,6 @@
 import 'package:clean_architecture_mvvm/app/app_prefs.dart';
 import 'package:clean_architecture_mvvm/presentation/common/state_renderer.dart/state_render_impl.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_architecture_mvvm/app/di.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/routes_manager.dart';
@@ -32,10 +33,12 @@ class _LoginViewState extends State<LoginView> {
     _passwordController.addListener(
         () => _loginViewModel.setPassword(_passwordController.text));
     _loginViewModel.isUserLoggedInSuccessfullyStreamController.stream
-        .listen((isSuccessLoggedIn) {
+        .listen((token) {
       // Navigate to main screen
       SchedulerBinding.instance.addPostFrameCallback((_) {
+        _appPreferences.setUserToken(token);
         _appPreferences.setIsUserLoggedIn();
+        resetModules();
         Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
     });
@@ -98,11 +101,11 @@ class _LoginViewState extends State<LoginView> {
                       keyboardType: TextInputType.emailAddress,
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.username,
-                        labelText: AppStrings.username,
+                        hintText: AppStrings.username.tr(),
+                        labelText: AppStrings.username.tr(),
                         errorText: (snapshot.data ?? true)
                             ? null
-                            : AppStrings.usernameError,
+                            : AppStrings.usernameError.tr(),
                       ),
                     );
                   },
@@ -122,11 +125,11 @@ class _LoginViewState extends State<LoginView> {
                       keyboardType: TextInputType.visiblePassword,
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.password,
-                        labelText: AppStrings.password,
+                        hintText: AppStrings.password.tr(),
+                        labelText: AppStrings.password.tr(),
                         errorText: (snapshot.data ?? true)
                             ? null
-                            : AppStrings.passwordError,
+                            : AppStrings.passwordError.tr(),
                       ),
                     );
                   },
@@ -148,7 +151,7 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: (snapshot.data ?? false)
                             ? () => _loginViewModel.login()
                             : null,
-                        child: const Text(AppStrings.login),
+                        child: Text(AppStrings.login.tr()),
                       ),
                     );
                   },
@@ -169,7 +172,7 @@ class _LoginViewState extends State<LoginView> {
                             .pushNamed(Routes.forgotPasswordRoute);
                       },
                       child: Text(
-                        AppStrings.forgetPassword,
+                        AppStrings.forgetPassword.tr(),
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
@@ -178,7 +181,7 @@ class _LoginViewState extends State<LoginView> {
                         Navigator.of(context).pushNamed(Routes.registerRoute);
                       },
                       child: Text(
-                        AppStrings.registerText,
+                        AppStrings.registerText.tr(),
                         style: Theme.of(context).textTheme.subtitle2,
                         textAlign: TextAlign.end,
                       ),
